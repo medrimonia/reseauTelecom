@@ -1,6 +1,14 @@
 # Object files
 *.o
 
+# temporary files
+*~
+
+# tex produced files
+*.aux
+*.log
+*.pdf
+
 # Libraries
 *.lib
 *.a
