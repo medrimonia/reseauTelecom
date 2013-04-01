@@ -20,6 +20,8 @@ Vertex.o: Vertex.hpp
 
 Graph.o: Graph.hpp
 
+testGraph.o: Graph.hpp
+
 # clean
 
 clean:

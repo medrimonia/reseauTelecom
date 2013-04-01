@@ -2,51 +2,51 @@
 #include "Vertex.hpp"
 
 namespace graphs{
-	
-	Vertex::Vertex(){
-		_name = "???";
-		_x = 0;
-		_y = 0;
-	}
 
-	Vertex::Vertex(const Vertex & v){
-		_name = v._name;
-		_x = v._x;
-		_y = v._y;
-	}
-	
-	Vertex::~Vertex(){
-	}
+  Vertex::Vertex(){
+    _name = "???";
+    _x = 0;
+    _y = 0;
+  }
 
-	std::string Vertex::getName() const{
-		return _name;
-	}
+  Vertex::Vertex(const Vertex & v){
+    _name = v._name;
+    _x = v._x;
+    _y = v._y;
+  }
 
-	int Vertex::getX() const{
-		return _x;
-	}
+  Vertex::~Vertex(){
+  }
 
-	int Vertex::getY() const{
-		return _y;
-	}
+  std::string Vertex::getName() const{
+    return _name;
+  }
 
-	void Vertex::setName(std::string newName){
-		_name = newName;
-	}
-	
-	void Vertex::setPosition(int x, int y){
-		_x = x;
-		_y = y;
-	}
+  int Vertex::getX() const{
+    return _x;
+  }
 
-	std::ostream & operator<<(std::ostream &out, const Vertex & v){
-		out << "(";
-		out << v.getName();
-		out << ',';
-		out << v.getX();
-		out << ',';
-		out << v.getY();
-		out << ")";
-		return out;
-	}
+  int Vertex::getY() const{
+    return _y;
+  }
+
+  void Vertex::setName(std::string newName){
+    _name = newName;
+  }
+
+  void Vertex::setPosition(int x, int y){
+    _x = x;
+    _y = y;
+  }
+
+  std::ostream & operator<<(std::ostream &out, const Vertex & v){
+    out << "(";
+    out << v.getName();
+    out << ',';
+    out << v.getX();
+    out << ',';
+    out << v.getY();
+    out << ")";
+    return out;
+  }
 }
