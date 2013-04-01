@@ -1,8 +1,21 @@
 import sys
 
-if len(sys.argv) < 3:
-    print ("Usage :", sys.argv[0], "<vertex file> <edge file>")
+def usage():
+    print ("tikzpicture :", sys.argv[0], "<vertex file> <edge file>")
+    print ("standalone :", sys.argv[0], "-s <vertex file> <edge file>");
     sys.exit()
+
+if len(sys.argv) < 3:
+    usage();
+
+standalone = 0
+if sys.argv[1] == "-s":
+    standalone = 1
+    if len(sys.argv) < 4:
+        usage()
+    sys.argv[1] = sys.argv[2]
+    sys.argv[2] = sys.argv[3]
+
 
 ################################################################################
 #                              READING DATA                                    #
@@ -32,22 +45,31 @@ for line in edge_file:
 ################################################################################
 
 # Printing header
+if standalone:
+    print ("\\documentclass{article}")
+    print ("\\usepackage{tikz}")
+    print ("\\begin{document}")
+    print ("\\resizebox{\\columnwidth}{!}{")
 print ("\\begin{tikzpicture}")
 
 size = 3
 
+# Printing Vertex
 for entry in vertex:
     print ("\draw [fill=violet] (", vertex[entry][0] - size/2,",", end=" ")
     print (vertex[entry][1] - size/2,")", end=" ")
     print ("rectangle (", vertex[entry][0] + size/2,",", end=" ")
     print (vertex[entry][1] + size /2,");")
 
-    #print (entry, vertex[entry])
-
+# Printing Edges
 for entry in tuples:
     source = vertex[entry[0]]
     dest = vertex[entry[1]]
     print("\draw [ultra thick, violet] (", source[0],',', source[1],")", end="")
     print(" -- (",dest[0],',',dest[1],");");
 
+# Printing foot
 print ("\\end{tikzpicture}")
+if standalone:
+    print ("}")
+    print ("\\end{document}")
