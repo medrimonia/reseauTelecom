@@ -47,6 +47,10 @@ namespace graphs{
     }
   }
 
+  const Vertex & Graph::getVertex(int index) const{
+    return *_vertices[index];
+  }
+
   vector<Vertex *> Graph::getVertices() const{
     return _vertices;
   }

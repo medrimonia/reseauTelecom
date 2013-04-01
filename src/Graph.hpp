@@ -29,6 +29,7 @@ namespace graphs{
     Graph(const Graph & g);
     ~Graph();
 
+    const Vertex & getVertex(int index) const;
     std::vector<Vertex *> getVertices() const;
 
     bool edgeExists(unsigned int v1, unsigned int v2) const;

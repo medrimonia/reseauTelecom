@@ -24,7 +24,8 @@ int main(int argc, char ** argv){
   for (unsigned int i = 0; i < coveringTree.size(); i++){
     int v1 = std::get<0>(coveringTree[i]);
     int v2 = std::get<1>(coveringTree[i]);
-    std::cout << v1 << "   " << v2 << std::endl;
+    std::cout << g2.getVertex(v1).getName() << "   ";
+    std::cout << g2.getVertex(v2).getName() << std::endl;
   }
 
   delete &g2;
