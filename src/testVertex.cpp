@@ -10,4 +10,5 @@ int main(int argc, char ** argv){
 	v.setPosition(32,42);
 	std::cout << "Final : " << v.getName();
 	std::cout << " at : [" << v.getX() << ',' << v.getY() << "]\n";	
+	std::cout << "Final : " << v << std::endl;
 }

@@ -1,3 +1,4 @@
+#include <ostream>
 #include "Vertex.hpp"
 
 namespace graphs{
@@ -8,15 +9,15 @@ namespace graphs{
 		_y = 0;
 	}
 
-	std::string Vertex::getName(){
+	std::string Vertex::getName() const{
 		return _name;
 	}
 
-	int Vertex::getX(){
+	int Vertex::getX() const{
 		return _x;
 	}
 
-	int Vertex::getY(){
+	int Vertex::getY() const{
 		return _y;
 	}
 
@@ -27,5 +28,16 @@ namespace graphs{
 	void Vertex::setPosition(int x, int y){
 		_x = x;
 		_y = y;
+	}
+
+	std::ostream & operator<<(std::ostream &out, const Vertex & v){
+		out << "(";
+		out << v.getName();
+		out << ',';
+		out << v.getX();
+		out << ',';
+		out << v.getY();
+		out << ")";
+		return out;
 	}
 }

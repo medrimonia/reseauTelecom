@@ -12,11 +12,13 @@ namespace graphs{
 	public:
 		Vertex();
 
-		std::string getName();
-		int getX();
-		int getY();
+		std::string getName() const;
+		int getX() const;
+		int getY() const;
 
 		void setName(std::string newName);
 		void setPosition(int x, int y);
 	};
+
+	std::ostream & operator<<(std::ostream & out, const Vertex & v);
 }
