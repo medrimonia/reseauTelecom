@@ -3,7 +3,9 @@ CFLAGS= -ggdb -Wall -Wextra -std=c++0x
 
 # Targets
 
-all: testVertex testGraph
+all: testVertex testGraph minCoveringGraph
+
+minCoveringGraph: minCoveringGraph.o Graph.o Vertex.o
 
 testGraph: testGraph.o Graph.o Vertex.o
 
@@ -16,11 +18,15 @@ testVertex: testVertex.o Vertex.o
 
 # Specific dependencies
 
+Graph.hpp: Vertex.hpp
+
 Vertex.o: Vertex.hpp
 
 Graph.o: Graph.hpp
 
 testGraph.o: Graph.hpp
+
+minCoveringGraph.o : Graph.hpp
 
 # clean
 
