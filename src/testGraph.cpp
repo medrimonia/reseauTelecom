@@ -1,4 +1,7 @@
 #include <iostream>
+#include <vector>
+#include <tuple>
+
 
 #include "Graph.hpp"
 
@@ -14,5 +17,15 @@ int main(int argc, char ** argv){
   std::cout << g2 << std::endl;
 
   std::cout << "Distance : " << g2.getDistance(0,2) << std::endl;
+
+  std::vector<std::tuple<unsigned int, unsigned int> > coveringTree;
+  coveringTree = g2.minimalCoveringTree();
+
+  for (unsigned int i = 0; i < coveringTree.size(); i++){
+    int v1 = std::get<0>(coveringTree[i]);
+    int v2 = std::get<1>(coveringTree[i]);
+    std::cout << v1 << "   " << v2 << std::endl;
+  }
+
   delete &g2;
 }

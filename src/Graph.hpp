@@ -31,7 +31,23 @@ namespace graphs{
 
     std::vector<Vertex *> getVertices() const;
 
+    bool edgeExists(unsigned int v1, unsigned int v2) const;
     float getDistance(unsigned int v1, unsigned int v2) const;
+
+    void addEdge(unsigned int v1, unsigned int v2);
+    void removeEdge(unsigned int v1, unsigned int v2);
+
+    /**
+     * Return the sum of all the edges activated (total cost of the graph)es
+     */
+    float cost() const;
+
+    /**
+     * Return a vector of edge (tuple of their indice) which forms a minimal
+     * covering tree for the graph.
+     */
+    std::vector<std::tuple<unsigned int, unsigned int> >
+    minimalCoveringTree();
   };
 
   Graph & graphFromFile(char * fileName);

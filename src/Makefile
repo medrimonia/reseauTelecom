@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS= -ggdb -Wall -Wextra
+CFLAGS= -ggdb -Wall -Wextra -std=c++0x
 
 # Targets
 
