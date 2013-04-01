@@ -9,7 +9,7 @@ namespace graphs{
 		/**
 		 * An array of all the vertices contained in the graph
 		 */
-		std::vector<Vertex> _vertices;
+		std::vector<Vertex *> _vertices;
 		/**
 		 * Incidence[x][y] = true if an edge exist between vertices[x] and
 		 * vertices[y].
@@ -26,8 +26,13 @@ namespace graphs{
 		 */
 		Graph(std::vector<std::string> vertexNames,
 					std::vector<std::vector<int> > vertexLocations);
-		std::vector<Vertex> getVertices() const;
+		Graph(const Graph & g);
+		~Graph();
+
+		std::vector<Vertex *> getVertices() const;
 	};
+	
+	Graph & graphFromFile(char * fileName);
 
 	std::ostream & operator<<(std::ostream & out, const Graph & g);
 }

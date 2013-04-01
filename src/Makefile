@@ -23,7 +23,7 @@ Graph.o: Graph.hpp
 # clean
 
 clean:
-	rm -rf *.o
+	rm -rf *.o *~
 
 mrproper: clean
 	rm -rf testVertex testGraph

@@ -9,6 +9,15 @@ namespace graphs{
 		_y = 0;
 	}
 
+	Vertex::Vertex(const Vertex & v){
+		_name = v._name;
+		_x = v._x;
+		_y = v._y;
+	}
+	
+	Vertex::~Vertex(){
+	}
+
 	std::string Vertex::getName() const{
 		return _name;
 	}

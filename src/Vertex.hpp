@@ -11,6 +11,8 @@ namespace graphs{
 		int _y;
 	public:
 		Vertex();
+		Vertex(const Vertex & v);
+		~Vertex();
 
 		std::string getName() const;
 		int getX() const;
