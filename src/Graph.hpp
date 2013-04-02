@@ -34,6 +34,7 @@ namespace graphs{
 
     const Vertex & getVertex(int index) const;
     std::vector<Vertex *> getVertices() const;
+    std::vector<std::tuple<unsigned int, unsigned int> > getEdges() const;
 
     bool edgeExists(unsigned int v1, unsigned int v2) const;
     float getDistance(unsigned int v1, unsigned int v2) const;

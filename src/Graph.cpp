@@ -60,6 +60,19 @@ namespace graphs{
   vector<Vertex *> Graph::getVertices() const{
     return _vertices;
   }
+  
+  vector<std::tuple<unsigned int, unsigned int> > Graph::getEdges() const{
+    vector<std::tuple<unsigned int, unsigned int> > edges;
+    for (unsigned int i = 0; i < _incidence.size(); i++){
+      for (unsigned int j = i + 1; j < _incidence[i].size(); j++){
+        if (edgeExists(i, j)){
+          std::tuple<unsigned int, unsigned int> edge(i,j);
+          edges.push_back(edge);
+        }
+      }
+    }
+    return edges;
+  }
 
   void Graph::removeEdge(unsigned int v1, unsigned int v2){
     _incidence[v1][v2] = false;

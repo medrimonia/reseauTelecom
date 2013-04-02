@@ -23,13 +23,15 @@ if sys.argv[1] == "-s":
 vertex_file = open(sys.argv[1])
 edge_file = open(sys.argv[2])
 
+scale = 1.0 / 20
+
 # Reading the vertex file
 vertex={}
 for line in vertex_file:
     words = line.split()
     v_name = words[0]
-    v_x = int(words[1])
-    v_y = int(words[2])
+    v_x = int(words[1]) * scale
+    v_y = int(words[2]) * scale
     vertex[v_name]=[v_x, v_y]
 
 # Reading the edge file
@@ -51,8 +53,10 @@ if standalone:
     print ("\\begin{document}")
     print ("\\resizebox{\\columnwidth}{!}{")
 print ("\\begin{tikzpicture}")
+print ("\\tikzstyle{every node}=[font=\\huge]")
 
-size = 3
+size = 0.2
+delta = 0.8
 
 # Printing Vertex
 for entry in vertex:
@@ -60,6 +64,9 @@ for entry in vertex:
     print (vertex[entry][1] - size/2,")", end=" ")
     print ("rectangle (", vertex[entry][0] + size/2,",", end=" ")
     print (vertex[entry][1] + size /2,");")
+    # Printing name
+    #print("\\node at (",vertex[entry][0],",",vertex[entry][1] + delta, end="")
+    #print(") {",entry,"};")
 
 # Printing Edges
 for entry in tuples:

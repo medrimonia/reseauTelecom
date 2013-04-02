@@ -3,13 +3,15 @@ CFLAGS= -ggdb -Wall -Wextra -std=c++0x
 
 # Targets
 
-all: testVertex testGraph minCoveringTree
+all: testVertex testGraph minCoveringTree testCycleGraph
 
 minCoveringTree: minCoveringTree.o Graph.o Vertex.o
 
 testGraph: testGraph.o Graph.o Vertex.o
 
 testVertex: testVertex.o Vertex.o
+
+testCycleGraph: testCycleGraph.o Graph.o Vertex.o
 
 # Generic Rules
 
@@ -34,4 +36,4 @@ clean:
 	rm -rf *.o *~
 
 mrproper: clean
-	rm -rf testVertex testGraph minCoveringTree
+	rm -rf testVertex testGraph minCoveringTree testCycleGraph
