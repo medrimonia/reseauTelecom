@@ -5,6 +5,8 @@
 #include <set>
 #include <limits>
 
+#include <assert.h>
+
 #include "Graph.hpp"
 
 using std::vector;
@@ -47,6 +49,10 @@ namespace graphs{
     }
   }
 
+  unsigned int Graph::nbVertex() const{
+    return _vertices.size();
+  }
+
   const Vertex & Graph::getVertex(int index) const{
     return *_vertices[index];
   }
@@ -71,6 +77,29 @@ namespace graphs{
 
   float Graph::getDistance(unsigned int v1, unsigned int v2) const{
     return _distances[v1][v2];
+  }
+
+  std::set<unsigned int> Graph::verticesInRange(unsigned int v,
+                                                unsigned int k){
+    std::set<unsigned int> inRange;
+    // End recursion condition
+    if (k == 0)
+      return inRange;
+    for (unsigned int n = 0; n < nbVertex(); n++){
+      if (edgeExists(v, n)){
+        inRange.insert(n);
+        // We avoid to use the same edge twice
+        removeEdge(v,n);
+        std::set<unsigned int> reachable = verticesInRange(n, k-1);
+        for (std::set<unsigned int>::iterator it = reachable.begin();
+             it != reachable.end();
+             ++it){
+          inRange.insert(*it);
+        }
+        addEdge(v, n);
+      }
+    }
+    return inRange;
   }
 
   /**
@@ -118,6 +147,19 @@ namespace graphs{
       outTree.erase(std::get<1>(best));
     }
     return result;
+  }
+
+  bool Graph::isEdgeInBornedCycle(unsigned int v1,
+                                  unsigned int v2,
+                                  unsigned int k){
+    assert(edgeExists(v1,v2));
+    removeEdge(v1,v2);
+    // If a Path of length k-1 from v1 to v2 exists, {v1,v2} is in a cycle of
+    // length equal or inferior to k
+    std::set<unsigned int> nearbyVertex = verticesInRange(v1, k-1);
+    // depth first search (removing edges) from v1 to v2
+    addEdge(v1,v2);
+    return (nearbyVertex.count(v2) == 1);
   }
 
   float Graph::cost() const{

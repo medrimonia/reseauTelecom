@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <set>
 
 #include "Vertex.hpp"
 
@@ -29,6 +30,8 @@ namespace graphs{
     Graph(const Graph & g);
     ~Graph();
 
+    unsigned int nbVertex() const;
+
     const Vertex & getVertex(int index) const;
     std::vector<Vertex *> getVertices() const;
 
@@ -44,11 +47,24 @@ namespace graphs{
     float cost() const;
 
     /**
+     * Return a list of all the vertices which can be reached from v by
+     * using k or less edges.
+     */
+    std::set<unsigned int> verticesInRange(unsigned int v,
+                                           unsigned int k);
+
+    /**
      * Return a vector of edge (tuple of their indice) which forms a minimal
      * covering tree for the graph.
      */
     std::vector<std::tuple<unsigned int, unsigned int> >
     minimalCoveringTree();
+    /**
+     * Return true if the edge between v1 and v2 is in a cycle of size k or less
+     */
+    bool isEdgeInBornedCycle(unsigned int v1,
+                             unsigned int v2,
+                             unsigned int k);
   };
 
   Graph & graphFromFile(char * fileName);
