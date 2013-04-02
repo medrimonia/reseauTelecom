@@ -12,3 +12,11 @@
 
 %.pdf: %.tex
 	pdflatex -output-directory $(@D) $^
+
+clean:
+	rm data/*-min-covering
+	rm data/*.tex
+	rm data/*-cycle
+
+mrproper:
+	rm data/*.pdf
