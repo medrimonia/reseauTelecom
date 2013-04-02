@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <tuple>
+#include <set>
 
 
 #include "Graph.hpp"
@@ -24,9 +25,20 @@ int main(int argc, char ** argv){
   for (unsigned int i = 0; i < coveringTree.size(); i++){
     int v1 = std::get<0>(coveringTree[i]);
     int v2 = std::get<1>(coveringTree[i]);
+    g2.addEdge(v1,v2);
     std::cout << g2.getVertex(v1).getName() << "   ";
     std::cout << g2.getVertex(v2).getName() << std::endl;
   }
+
+  std::cout << "Computing neighborhood" << std::endl;
+  std::set<unsigned int> neighborhood = g2.verticesInRange(2,2);
+
+  for (std::set<unsigned int>::iterator it = neighborhood.begin();
+       it != neighborhood.end();
+       ++it){
+    std::cout << g2.getVertex(*it) << std::endl;
+  }
+  
 
   delete &g2;
 }
