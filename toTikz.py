@@ -65,8 +65,8 @@ for entry in vertex:
     print ("rectangle (", vertex[entry][0] + size/2,",", end=" ")
     print (vertex[entry][1] + size /2,");")
     # Printing name
-    #print("\\node at (",vertex[entry][0],",",vertex[entry][1] + delta, end="")
-    #print(") {",entry,"};")
+    print("\\node at (",vertex[entry][0],",",vertex[entry][1] + delta, end="")
+    print(") {",entry,"};")
 
 # Printing Edges
 for entry in tuples:

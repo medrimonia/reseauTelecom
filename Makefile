@@ -14,9 +14,9 @@
 	pdflatex -output-directory $(@D) $^
 
 clean:
-	rm data/*-min-covering
-	rm data/*.tex
-	rm data/*-cycle
+	rm -f data/*-min-covering
+	rm -f data/*.tex
+	rm -f data/*-cycle
 
-mrproper:
-	rm data/*.pdf
+mrproper: clean
+	rm -f data/*.pdf

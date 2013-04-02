@@ -170,6 +170,7 @@ namespace graphs{
     // If a Path of length k-1 from v1 to v2 exists, {v1,v2} is in a cycle of
     // length equal or inferior to k
     std::set<unsigned int> nearbyVertex = verticesInRange(v1, k-1);
+
     // depth first search (removing edges) from v1 to v2
     addEdge(v1,v2);
     return (nearbyVertex.count(v2) == 1);
