@@ -82,7 +82,7 @@ int main(int argc, char ** argv){
       // bestEdge has now been found
       g.addEdge(std::get<0>(bestEdge), std::get<1>(bestEdge));
       // TODO : Insert in queue might not be necessary
-      edgeQueue.insert(edgeQueue.begin(), bestEdge);
+      //edgeQueue.insert(edgeQueue.begin(), bestEdge);
       // Inserting removed edge again
       g.addEdge(v1, v2);
     }
