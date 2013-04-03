@@ -13,7 +13,9 @@ using std::vector;
 
 namespace graphs{
   Graph::Graph(vector<std::string> vertexNames,
-               vector<vector<int> > vertexLocations){
+               vector<vector<int> > vertexLocations)
+    : _incidence(vertexNames.size(), vector<bool>(vertexNames.size(), false)),
+      _distances(vertexNames.size(), vector<float>(vertexNames.size(), 0)){
     unsigned int nbVertex = vertexNames.size();
     for (std::size_t i=0; i < nbVertex; i++){
       Vertex * v = new Vertex();
@@ -21,10 +23,6 @@ namespace graphs{
       v->setPosition(vertexLocations[i][0], vertexLocations[i][1]);
       _vertices.push_back(v);
     }
-    _incidence = *(new vector<vector<bool> >(nbVertex,
-                                             vector<bool>(nbVertex, false)));
-    _distances = *(new vector<vector<float> >(nbVertex,
-                                              vector<float>(nbVertex, 0)));
     for (unsigned int i = 0; i < nbVertex; i++){
       Vertex * v1 = _vertices[i];
       for (unsigned int j = 0; j < nbVertex; j++){
