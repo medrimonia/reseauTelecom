@@ -113,6 +113,87 @@ namespace graphs{
     return inRange;
   }
 
+  vector<std::tuple<unsigned int, unsigned int> >
+  Graph::generateCycle(unsigned int u,
+                       unsigned int v,
+                       unsigned int k){
+    float bestScore = std::numeric_limits<float>::max();
+    vector<std::tuple<unsigned int, unsigned int> > best;
+    std::tuple<unsigned int, unsigned int> edge(u,v);
+    vector<std::tuple<unsigned int, unsigned int> > current;
+    current.push_back(edge);
+    std::set<unsigned int> vertexUsed;
+    vertexUsed.insert(u);
+    unsigned int nbCovered = 1;
+    float currentScore = 0;
+    generateCycle(vertexUsed,
+                  u, v, k,
+                  best, &bestScore,
+                  &nbCovered, current, &currentScore);
+    return best;
+  }
+
+  void
+  Graph::generateCycle(
+    std::set<unsigned int> vertexUsed,
+    unsigned int actual,
+    unsigned int v,
+    unsigned int k,
+    vector<std::tuple<unsigned int, unsigned int> > best,
+    float * bestScore,
+    unsigned int * nbCovered,
+    vector<std::tuple<unsigned int, unsigned int> > current,
+    float * currentScore)
+  {
+    if (k == 0)
+      return;
+
+    for (unsigned int n = 0; n < nbVertex(); n++){
+      // We can't go backwards or directly to destination
+      if (vertexUsed.count(n) == 1 ||
+          (vertexUsed.size() == 1 && n == v))
+        continue;
+      // Adding vertex and updating score
+      vertexUsed.insert(n);
+      std::tuple<unsigned int, unsigned int> edge(actual, n);
+      current.push_back(edge);
+      if (edgeExists(actual, n))
+        *nbCovered = (*nbCovered) + 1;
+      else
+        *currentScore += getDistance(actual,n);
+      // If we reached destination, evaluate
+      if (n == v){
+        // If score of cycle is better than best, replace it
+        if (*currentScore / *nbCovered < *bestScore){
+          *bestScore = *currentScore / *nbCovered;
+          best.clear();
+          for (unsigned int i = 0; i < current.size(); i++){
+            best.push_back(current[i]);
+          }
+        }
+      }
+      // If destination hasn't been reached, call function recursively
+      else{
+        generateCycle(vertexUsed,
+                      n, // Previous is the one we just added
+                      v, // destination don't change
+                      k - 1, // decreasing k after each call
+                      best,
+                      bestScore,
+                      nbCovered,
+                      current,
+                      currentScore);
+      }
+      // After everything, remove the edge
+      vertexUsed.erase(n);
+      current.erase(current.end());
+      if (edgeExists(actual, n))
+        *nbCovered = (*nbCovered) - 1;
+      else
+        *currentScore -= getDistance(actual,n);
+    }
+  }
+
   /**
    * This function uses the Prim algorithm to determine a minimal covering
    * tree. The result is given as a vector of tuple<int,int>, each one

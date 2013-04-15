@@ -21,6 +21,17 @@ namespace graphs{
      * it is precalculated in order to spare time.
      */
     std::vector<std::vector<float> > _distances;
+
+    void generateCycle(
+      std::set<unsigned int> vertexUsed,
+      unsigned int actual,
+      unsigned int v,
+      unsigned int k,
+      std::vector<std::tuple<unsigned int, unsigned int> > best,
+      float * bestScore,
+      unsigned int * nbCovered,
+      std::vector<std::tuple<unsigned int, unsigned int> > current,
+      float * currentScore);
   public:
     /**
      * Create a new graph according to the parameters
@@ -53,6 +64,23 @@ namespace graphs{
      */
     std::set<unsigned int> verticesInRange(unsigned int v,
                                            unsigned int k);
+
+    /**
+     * This function return a cycle that could be built in this graph between
+     * the vertex u and the vertex v. The maximal length of the cycle is k
+     */
+    std::vector<std::tuple<unsigned int, unsigned int> >
+    generateCycle(unsigned int u, unsigned int v, unsigned int k);
+
+    /**
+     * This function return a vector of cycles such as the union of all the
+     * edges contained in the different cycles contains all the edges specified
+     * as parameter.
+     * Every cycle is of length k or less
+     */
+    std::vector<std::vector<std::tuple<unsigned int, unsigned int> > >
+    generateCycles(std::vector<std::tuple<unsigned int, unsigned int> > edges,
+                   unsigned int k);
 
     /**
      * Return a vector of edge (tuple of their indice) which forms a minimal
