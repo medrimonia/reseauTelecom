@@ -34,13 +34,17 @@ for line in vertex_file:
     v_y = int(words[2]) * scale
     vertex[v_name]=[v_x, v_y]
 
-# Reading the edge file
+# Reading the edge file (may contain comments)
+comments = []
 tuples = []
 for line in edge_file:
-    words = line.split()
-    v1 = words[0]
-    v2 = words[1]
-    tuples += [[v1, v2]]
+    if line[0] != '#':
+        words = line.split()
+        v1 = words[0]
+        v2 = words[1]
+        tuples += [[v1, v2]]
+    else:
+        comments += [line[1:len(line)]]
 
 ################################################################################
 #                            PRODUCING TEX FILE                                #
@@ -79,4 +83,7 @@ for entry in tuples:
 print ("\\end{tikzpicture}")
 if standalone:
     print ("}")
+    # Printing comments
+    for comment in comments:
+        print(comment)
     print ("\\end{document}")
