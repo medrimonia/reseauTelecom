@@ -129,7 +129,9 @@ int main(int argc, char ** argv){
     std::cout << g.getVertex(v1).getName() << "   ";
     std::cout << g.getVertex(v2).getName() << std::endl;
   }
-
+  
+  std::cout << "#Total cost : " << g.cost() << std::endl;
+  
   // Cleaning
   delete &g;
 }
