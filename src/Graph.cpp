@@ -194,6 +194,17 @@ namespace graphs{
     }
   }
 
+  vector<vector<std::tuple<unsigned int, unsigned int> > >
+  Graph::generateCycles(unsigned int k){
+    vector<vector<std::tuple<unsigned int, unsigned int> > > result;
+    vector<std::tuple<unsigned int, unsigned int> > edges = getEdges();
+    for (unsigned int i = 0; i < edges.size(); i++){
+      result.push_back(generateCycle(std::get<0>(edges[i]),
+                                     std::get<1>(edges[i]),
+                                     k));
+    }
+    return result;
+  }
   /**
    * This function uses the Prim algorithm to determine a minimal covering
    * tree. The result is given as a vector of tuple<int,int>, each one

@@ -74,13 +74,12 @@ namespace graphs{
 
     /**
      * This function return a vector of cycles such as the union of all the
-     * edges contained in the different cycles contains all the edges specified
-     * as parameter.
+     * edges contained in the different cycles contains all the edges
+     * of the graph.
      * Every cycle is of length k or less
      */
     std::vector<std::vector<std::tuple<unsigned int, unsigned int> > >
-    generateCycles(std::vector<std::tuple<unsigned int, unsigned int> > edges,
-                   unsigned int k);
+    generateCycles(unsigned int k);
 
     /**
      * Return a vector of edge (tuple of their indice) which forms a minimal
