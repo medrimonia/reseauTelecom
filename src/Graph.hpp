@@ -22,7 +22,11 @@ namespace graphs{
      */
     std::vector<std::vector<float> > _distances;
 
+    // scoringMethod :
+    // 0 : distanceAdded
+    // 1 : distanceAdded / nbEdgeCovered
     void generateCycle(
+      int scoringMethod,
       std::set<unsigned int> vertexUsed,
       unsigned int actual,
       unsigned int v,
@@ -70,7 +74,10 @@ namespace graphs{
      * the vertex u and the vertex v. The maximal length of the cycle is k
      */
     std::vector<std::tuple<unsigned int, unsigned int> >
-    generateCycle(unsigned int u, unsigned int v, unsigned int k);
+    generateCycle(unsigned int u,
+                  unsigned int v,
+                  unsigned int k,
+                  int scoringMethod);
 
     /**
      * This function return a vector of cycles such as the union of all the

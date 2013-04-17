@@ -38,6 +38,25 @@ int main(int argc, char ** argv){
   vector<vector<std::tuple<unsigned int, unsigned int> > > cyclesSet;
   cyclesSet = g.generateCycles(cycleMaxSize);
 
+  if (DEBUG){
+    for (unsigned int cycleIndex = 0;
+         cycleIndex < cyclesSet.size();
+         cycleIndex++)
+    {
+      std:: cout << cycleIndex << " : ";
+      for (unsigned int edgeIndex = 0;
+           edgeIndex < cyclesSet[cycleIndex].size();
+           edgeIndex++)
+      {
+        std::tuple<unsigned int, unsigned int> edge;
+        edge = cyclesSet[cycleIndex][edgeIndex];
+        std::cout << '{' << std::get<0>(edge)
+                  << ',' << std::get<1>(edge) << '}';
+      }
+      std:: cout << std::endl;
+    }
+  }
+
   if (DEBUG)
     std::cout << "Adding Cycles to graph" << std::endl;
   
@@ -55,7 +74,7 @@ int main(int argc, char ** argv){
       // Choosing best Cycle
       float score = 0;
       int nbEdgeCovered = 0;
-      if (DEBUG)
+      if (DEBUG >= 2)
         std::cout << cyclesSet[cycleIndex].size() << " edges in the cycle"
                   << std::endl;
       for (unsigned int edgeIndex = 0;
@@ -75,7 +94,7 @@ int main(int argc, char ** argv){
         score = std::numeric_limits<float>::max();
       else
         score = score / nbEdgeCovered;
-      if (DEBUG)
+      if (DEBUG >= 2)
         std::cout << "\tScore : " << score << std::endl;
       if (score < bestScore){
         bestScore = score;
@@ -104,7 +123,7 @@ int main(int argc, char ** argv){
     unsigned int u = std::get<0>(edges[i]);
     unsigned int v = std::get<1>(edges[i]);
     g.removeEdge(u, v);
-    if (DEBUG){
+    if (DEBUG >= 2){
       std::cout << "Trying to remove edge {" << u << ',' << v  << "}";
       std::cout << std::endl;
     }
@@ -117,7 +136,7 @@ int main(int argc, char ** argv){
         continue;
       if (!g.isEdgeInBornedCycle(u2, v2, cycleMaxSize)){
         invalidRemoval = true;
-        if (DEBUG){
+        if (DEBUG >= 2){
           std::cout << "\tCan't remove the edge because of ";
           std::cout << "{" << u2 << "," << v2 << "}" << std::endl;
         }

@@ -116,7 +116,8 @@ namespace graphs{
   vector<std::tuple<unsigned int, unsigned int> >
   Graph::generateCycle(unsigned int u,
                        unsigned int v,
-                       unsigned int k){
+                       unsigned int k,
+                       int scoringMethod){
     float bestScore = std::numeric_limits<float>::max();
     vector<std::tuple<unsigned int, unsigned int> > best;
     std::tuple<unsigned int, unsigned int> edge(u,v);
@@ -126,7 +127,8 @@ namespace graphs{
     vertexUsed.insert(u);
     unsigned int nbCovered = 1;
     float currentScore = 0;
-    generateCycle(vertexUsed,
+    generateCycle(scoringMethod,
+                  vertexUsed,
                   u, v, k - 1,
                   best, &bestScore,
                   &nbCovered, current, &currentScore);
@@ -135,6 +137,7 @@ namespace graphs{
 
   void
   Graph::generateCycle(
+    int scoringMethod,
     std::set<unsigned int> vertexUsed,
     unsigned int actual,
     unsigned int v,
@@ -163,9 +166,15 @@ namespace graphs{
         *currentScore += getDistance(actual,n);
       // If we reached destination, evaluate
       if (n == v){
+        // calculating adapted score depending on method
+        float score;
+        switch(scoringMethod){
+        case 0: score = *currentScore; break;
+        case 1: score = *currentScore / *nbCovered; break;
+        }
         // If score of cycle is better than best, replace it
-        if (*currentScore / *nbCovered < *bestScore){
-          *bestScore = *currentScore / *nbCovered;
+        if (score < *bestScore){
+          *bestScore = score;
           best.clear();
           for (unsigned int i = 0; i < current.size(); i++){
             best.push_back(current[i]);
@@ -174,7 +183,8 @@ namespace graphs{
       }
       // If destination hasn't been reached, call function recursively
       else{
-        generateCycle(vertexUsed,
+        generateCycle(scoringMethod,
+                      vertexUsed,
                       n, // Previous is the one we just added
                       v, // destination don't change
                       k - 1, // decreasing k after each call
@@ -199,9 +209,19 @@ namespace graphs{
     vector<vector<std::tuple<unsigned int, unsigned int> > > result;
     vector<std::tuple<unsigned int, unsigned int> > edges = getEdges();
     for (unsigned int i = 0; i < edges.size(); i++){
-      result.push_back(generateCycle(std::get<0>(edges[i]),
-                                     std::get<1>(edges[i]),
-                                     k));
+      vector<std::tuple<unsigned int, unsigned int> > cycle;
+      cycle = generateCycle(std::get<0>(edges[i]),
+                            std::get<1>(edges[i]),
+                            k,
+                            0);
+      if (cycle.size() != 0)
+        result.push_back(cycle);
+      cycle = generateCycle(std::get<0>(edges[i]),
+                            std::get<1>(edges[i]),
+                            k,
+                            1);
+      if (cycle.size() != 0)
+        result.push_back(cycle);
     }
     return result;
   }
