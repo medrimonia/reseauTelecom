@@ -147,6 +147,8 @@ int main(int argc, char ** argv){
       g.addEdge(u,v);
   }
 
+  g.edgeSwitchImprovement(cycleMaxSize);
+
   // Refreshing edges
   edges = g.getEdges();
 

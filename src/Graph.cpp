@@ -297,6 +297,56 @@ namespace graphs{
     return sum;
   }
 
+  bool Graph::areEdgeInCycle(unsigned int k){
+    vector<std::tuple<unsigned int, unsigned int> > edges = getEdges();
+    for (unsigned int i = 0; i < edges.size(); i++){
+      if (!isEdgeInBornedCycle(std::get<0>(edges[i]),
+                               std::get<1>(edges[i]),
+                               k))
+        return false;
+    }
+    return true;
+  }
+
+  void Graph::edgeSwitchImprovement(unsigned int k){
+    vector<std::tuple<unsigned int, unsigned int> > edges = getEdges();
+    for (unsigned int edgeIndex = 0;
+         edgeIndex < edges.size();
+         edgeIndex++)
+    {
+      unsigned int u = std::get<0>(edges[edgeIndex]);
+      unsigned int v = std::get<1>(edges[edgeIndex]);
+      float shortestDist = getDistance(u,v);
+      std::tuple<unsigned int, unsigned int> bestEdge(u,v);
+      removeEdge(u,v);
+      for (unsigned int n = 0; n < nbVertex(); n++){
+        if (n == u || n == v)
+          continue;
+        if (getDistance(u,n) < shortestDist &&
+            !edgeExists(u,n)){
+          addEdge(u,n);
+          if (areEdgeInCycle(k)){
+            shortestDist = getDistance(u,n);
+            std::get<0>(bestEdge) = u;
+            std::get<1>(bestEdge) = n;
+          }
+          removeEdge(u,n);
+        }
+        if (getDistance(v,n) < shortestDist &&
+            !edgeExists(v,n)){
+          addEdge(v,n);
+          if (areEdgeInCycle(k)){
+            shortestDist = getDistance(v,n);
+            std::get<0>(bestEdge) = v;
+            std::get<1>(bestEdge) = n;
+          }
+          removeEdge(v,n);
+        }
+      }
+      addEdge(std::get<0>(bestEdge), std::get<1>(bestEdge));
+    }
+  }
+
 
   Graph & graphFromFile(char * path){
     std::ifstream input;

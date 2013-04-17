@@ -100,6 +100,14 @@ namespace graphs{
     bool isEdgeInBornedCycle(unsigned int v1,
                              unsigned int v2,
                              unsigned int k);
+
+    bool areEdgeInCycle(unsigned int k);
+
+    /**
+     * Try to switch every edge to another vertices closer and verify if it
+     * still matches the rules
+     */
+    void edgeSwitchImprovement(unsigned int k);
   };
 
   Graph & graphFromFile(char * fileName);
