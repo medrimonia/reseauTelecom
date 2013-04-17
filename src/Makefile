@@ -13,12 +13,16 @@ testVertex: testVertex.o Vertex.o
 
 testCycleGraph: testCycleGraph.o Graph.o Vertex.o
 
+testCycleGraphV2: testCycleGraphV2.o Graph.o Vertex.o GraphTools.o
+
 # Generic Rules
 
 %.o: %.cpp
 	${CC} ${CFLAGS} -o $@ -c $<
 
 # Specific dependencies
+
+testCycleGraphV2.cpp: Graph.hpp GraphTools.hpp
 
 Graph.hpp: Vertex.hpp
 

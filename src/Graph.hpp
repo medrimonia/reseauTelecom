@@ -27,10 +27,10 @@ namespace graphs{
       unsigned int actual,
       unsigned int v,
       unsigned int k,
-      std::vector<std::tuple<unsigned int, unsigned int> > best,
+      std::vector<std::tuple<unsigned int, unsigned int> > & best,
       float * bestScore,
       unsigned int * nbCovered,
-      std::vector<std::tuple<unsigned int, unsigned int> > current,
+      std::vector<std::tuple<unsigned int, unsigned int> > & current,
       float * currentScore);
   public:
     /**

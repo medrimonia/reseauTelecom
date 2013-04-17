@@ -127,7 +127,7 @@ namespace graphs{
     unsigned int nbCovered = 1;
     float currentScore = 0;
     generateCycle(vertexUsed,
-                  u, v, k,
+                  u, v, k - 1,
                   best, &bestScore,
                   &nbCovered, current, &currentScore);
     return best;
@@ -139,10 +139,10 @@ namespace graphs{
     unsigned int actual,
     unsigned int v,
     unsigned int k,
-    vector<std::tuple<unsigned int, unsigned int> > best,
+    vector<std::tuple<unsigned int, unsigned int> > & best,
     float * bestScore,
     unsigned int * nbCovered,
-    vector<std::tuple<unsigned int, unsigned int> > current,
+    vector<std::tuple<unsigned int, unsigned int> > & current,
     float * currentScore)
   {
     if (k == 0)
