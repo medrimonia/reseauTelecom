@@ -152,7 +152,11 @@ int main(int argc, char ** argv){
       g.addEdge(u,v);
   }
 
-  g.edgeSwitchImprovement(cycleMaxSize);
+#define NB_ITERATIONS 10
+
+  for (int i = 0; i< NB_ITERATIONS; i++){
+    g.edgeSwitchImprovement(cycleMaxSize);
+  }
 
   clock_gettime(CLOCK_MONOTONIC, &t2);
 

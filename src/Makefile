@@ -4,7 +4,7 @@ LDFLAGS= -lrt
 
 # Targets
 
-all: testVertex testGraph minCoveringTree testCycleGraph
+all: testVertex testGraph minCoveringTree testCycleGraph testCycleGraphV2
 
 minCoveringTree: minCoveringTree.o Graph.o Vertex.o
 
