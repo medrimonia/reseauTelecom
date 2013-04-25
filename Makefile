@@ -1,3 +1,23 @@
+GRAPHS=$(wildcard data/*.graph)
+
+CYCLES=$(GRAPHS:.graph=-cycle)
+CYCLESV2=$(GRAPHS:.graph=-cycleV2)
+
+all: cycles cyclesV2
+
+cycles: $(CYCLES)
+
+cyclesV2: $(CYCLESV2)
+
+data/compare_file: cycles cyclesV2 compare.sh
+	./compare.sh >$@
+
+data/comparison.png: data/compare_file plot.sh
+	./plot.sh
+
+view-compare: data/comparison.png
+	eog $<
+
 %-min-covering: %.graph
 	src/minCoveringTree $< >$@
 
@@ -24,6 +44,8 @@ clean:
 	rm -f data/*-cycleV2
 	rm -f data/*.tex
 	rm -f data/*-cycle
+	rm -f data/compare_file
+	rm -f data/comparison.png
 
 mrproper: clean
 	rm -f data/*.pdf
