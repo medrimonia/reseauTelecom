@@ -1,5 +1,6 @@
 CC=g++
 CFLAGS= -ggdb -Wall -Wextra -std=c++0x
+LDFLAGS= -lrt
 
 # Targets
 
@@ -8,12 +9,16 @@ all: testVertex testGraph minCoveringTree testCycleGraph
 minCoveringTree: minCoveringTree.o Graph.o Vertex.o
 
 testGraph: testGraph.o Graph.o Vertex.o
+	$(CC) $^ -o $@ $(LDFLAGS)
 
 testVertex: testVertex.o Vertex.o
+	$(CC) $^ -o $@ $(LDFLAGS)
 
 testCycleGraph: testCycleGraph.o Graph.o Vertex.o
+	$(CC) $^ -o $@ $(LDFLAGS)
 
 testCycleGraphV2: testCycleGraphV2.o Graph.o Vertex.o GraphTools.o
+	$(CC) $^ -o $@ $(LDFLAGS)
 
 # Generic Rules
 

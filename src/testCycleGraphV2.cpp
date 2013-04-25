@@ -2,6 +2,7 @@
 #include <vector>
 #include <tuple>
 #include <limits>
+#include <time.h>
 
 #include "Graph.hpp"
 #include "GraphTools.hpp"
@@ -12,7 +13,11 @@ using std::vector;
 
 int main(int argc, char ** argv){
 
+  struct timespec t1,t2;
+
   graphs::Graph & g = graphs::graphFromFile(argv[1]);
+
+  clock_gettime(CLOCK_MONOTONIC, &t1);
 
   // TODO: Maybe readable from args later
   int cycleMaxSize = 4;
@@ -149,6 +154,8 @@ int main(int argc, char ** argv){
 
   g.edgeSwitchImprovement(cycleMaxSize);
 
+  clock_gettime(CLOCK_MONOTONIC, &t2);
+
   // Refreshing edges
   edges = g.getEdges();
 
@@ -158,8 +165,11 @@ int main(int argc, char ** argv){
     std::cout << g.getVertex(v1).getName() << "   ";
     std::cout << g.getVertex(v2).getName() << std::endl;
   }
+
+  float time = (t2.tv_sec - t1.tv_sec) * 1000000000 + (t2.tv_nsec - t1.tv_nsec);
   
   std::cout << "#Total cost : " << g.cost() << std::endl;
+  std::cout << "#Time used : " << time / (float) 1000000 << " ms" << std::endl;
   
   // Cleaning
   delete &g;

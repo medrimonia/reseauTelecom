@@ -12,8 +12,17 @@ cyclesV2: $(CYCLESV2)
 data/compare_file: cycles cyclesV2 compare.sh
 	./compare.sh >$@
 
+data/compare_time: cycles cyclesV2 compare_time.sh
+	./compare_time.sh >$@
+
 data/comparison.png: data/compare_file plot.sh
 	./plot.sh
+
+data/time_comparison.png: data/compare_time plot_time.sh
+	./plot_time.sh
+
+view-time-compare: data/time_comparison.png
+	eog $<
 
 view-compare: data/comparison.png
 	eog $<
@@ -38,6 +47,9 @@ view-compare: data/comparison.png
 
 %.pdf: %.tex
 	pdflatex -output-directory $(@D) $^
+
+%.view: %.pdf
+	evince $<
 
 clean:
 	rm -f data/*-min-covering
