@@ -1,0 +1,119 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[frenchb]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} 
+%Pour avoir un rendu plus beau
+\usepackage{lmodern}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{bigfoot}
+\usetikzlibrary{trees}
+
+\geometry{margin=2cm}
+
+\begin{document}
+\begin{center}
+  \includegraphics [width=40mm]{ENSEIRB-MATMECA.jpg}
+
+\vspace{\stretch{1}}
+
+\textsc{\Huge Flots et Combinatoire :}\\
+\vspace{0.5cm}
+\textsc{\Huge Optimisation d'un réseau de communication}\\
+\rule{0.4\textwidth}{1pt}
+
+\vspace{\stretch{1}}
+
+\begin{center}
+  
+  \begin{flushleft}
+    \large
+    \emph{Auteur :}\\
+    \begin{itemize}
+    \item Ludovic Hofer
+    \end{itemize}
+  \end{flushleft}
+  
+  
+  \begin{flushright}
+    \large
+    \emph{Responsable : TODO}
+  \end{flushright}
+\end{center}
+
+\vspace{\stretch{1}}
+
+{\large \url{https://github.com/medrimonia/reseauTelecom/}}
+
+\vspace{\stretch{1}}
+                  
+{\large Deuxième année, filière informatique}
+
+~
+
+{\large Second Semestre}\\
+                  
+\end{center}
+\thispagestyle{empty}
+\pagebreak
+
+\tableofcontents
+\pagebreak
+
+\section{Introduction}
+Le travail présenté dans ce document s'inscrit dans le cadre du cours de
+flots et combinatoire. Ce projet permet aux étudiants d'appréhender des
+méthodes d'approximation de problèmes \verb!NP-Complets!.\\
+
+\subsection{Description du problème}
+Le problème a résoudre se présente sous la forme suivante :\\
+Plusieurs sommets doivent être reliés afin de former un réseau, le coût d'une
+arête est donné par la distance entre les deux sommets qu'elle relie. Il faut
+que le graphe obtenu après ajout des arêtes soit connexe afin de permettre
+à chaque routeur d'envoyer des messages à tous les autres. Mais cette
+condition n'est pas suffisante, effectivement, pour assurer la stabilité du
+réseau, il est demandé que pour tout couple de sommets, il existe au moins
+deux chemins différents n'ayant aucune arête en commun. De plus, afin
+d'éviter que toutes les communications empruntent le même chemin, il est
+exigé que toutes les arêtes soient dans un cycle.
+
+\subsection{Formalisation du problème}
+...
+
+\section{Développement}
+
+Même si la majorité du développement a été faite en \verb!c++!, j'ai aussi
+utilisé d'autres langages, par exemple le \verb!python! pour générer du code
+tikz permettant de visualiser les graphes en les intégrant dans des documents
+latex.
+
+\subsection{Visualisation des graphes}
+Afin de pouvoir facilement détecter des problèmes dans les résultats fourni
+par le programme, j'ai commencé par développer un petit module en python
+permettant de transformer un graphe au format texte en graphe visualisable
+par \verb!tikz!.
+J'ai choisi d'utiliser le langage \verb!python! car il permet de parser très
+facilement du texte et il convient donc parfaitement aux genres d'objectifs
+de cette partie du programme.
+
+\subsection{Architecture}
+L'ordre de traitement utilisé pour obtenir une solution approximant
+le problème est le suivant :
+
+\begin{itemize}
+\item Acquisition du graphe : Lire un graphe depuis un fichier.
+\item Création de l'arbre couvrant minimal
+\item Complétion du graphe afin de satisfaire toutes les contraintes.
+\item Filtre
+\end{itemize}
+
+\subsection{Algorithmes utilisés}
+
+\subsection{Performances obtenues}
+
+\end{document}
