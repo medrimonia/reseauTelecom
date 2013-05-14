@@ -6,6 +6,7 @@
 
 # tex produced files
 *.aux
+*.toc
 *.log
 *.pdf
 
