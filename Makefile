@@ -33,10 +33,10 @@ view-compare: data/comparison.png
 %-min-covering.tex: %.graph %-min-covering toTikz.py
 	python3 toTikz.py -s $< $(word 2,$^) >$@
 
-%-cycle: %.graph
+%-cycle: %.graph src/testCycleGraph
 	src/testCycleGraph $< >$@
 
-%-cycleV2: %.graph
+%-cycleV2: %.graph src/testCycleGraphV2
 	src/testCycleGraphV2 $< >$@
 
 %-cycle.tex: %.graph %-cycle toTikz.py
@@ -50,6 +50,14 @@ view-compare: data/comparison.png
 
 %.view: %.pdf
 	evince $<
+
+FORCE:
+
+src/testCycleGraph: FORCE
+	make -C src testCycleGraph
+
+src/testCycleGraphV2: FORCE
+	make -C src testCycleGraphV2
 
 clean:
 	rm -f data/*-min-covering
